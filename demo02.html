@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            react
+        </title>
+        <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+        <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+        <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="example"></div>
+        <!--     <div id="parent">
+                两个数分别是1，2
+                <button id="childz">
+                    1+2和是3
+                </button>
+            </div> -->
+        <script type="text/babel">
+                    let Parent=React.createClass({
+                        render:function(){
+                            return(
+                                <div id="parent">
+                                    参数分别是&nbsp;&nbsp; {this.props.num}
+                                    <br/>
+                                    <Child num={this.props.num}></Child>
+                                </div>
+                                )
+                        },
+                        getDefaultProps:function(){
+                            return {}
+                        }
+                    });
+                
+                    let Child=React.createClass({
+                        render:function(){
+                            return(
+                                    <button id="child"  onClick={this.handleClick}>
+                                        参数的和是{this.state.sum}
+                                    </button>
+                                )
+                        },
+                        getInitialState:function(){
+                            return {sum:""}
+                        },
+                        getDefaultProps:function(){
+                            return {}
+                        },
+                        componentWillMount:function(){
+        
+                        },
+                        handleClick:function(){
+                            var sum =0
+                            for(let i=0;i<this.props.num.length;i++){
+                                sum+=this.props.num[i]
+                            }
+                            this.state.sum=sum
+                            this.setState({sum:this.state.sum})
+                        }
+                    });
+                ReactDOM.render(<Parent num={[1,2,3]}></Parent>,document.getElementById("example"))
+                </script>
+    </body>
+</html>

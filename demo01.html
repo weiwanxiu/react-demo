@@ -94,10 +94,16 @@
             // this.setProps({name:"wwx-new"})
           }
       });
-// state：是组建的属性，主要用来存储组件自身需要的数据。它是可以改变的，它的每次改变都会引起组件的更新，这也是ReactJS中的关键点之一。每次数据的更新都是通过修改state属性的值，然后ReactJS内部会监听state属性的变化，一旦发生变化，就会主动出发组件的render方法来更新DOM结构。
-// 虚拟DOM：它是ReactJS中提出的一个概念，是将真实的DOM结构映射成一个JSON数据结构，在有数据更改的时候更新真实的DOM，不需修改的时候不更新真实的DOM。
+
 
       ReactDOM.render(<List name="wwx" >children</List>, document.body);
+
+       // state：是组建的属性，主要用来存储组件自身需要的数据。它是可以改变的，它的每次改变都会引起组件的更新，这也是ReactJS中的关键点之一。每次数据的更新都是通过修改state属性的值，然后ReactJS内部会监听state属性的变化，一旦发生变化，就会主动出发组件的render方法来更新DOM结构。
+       // 虚拟DOM：它是ReactJS中提出的一个概念，是将真实的DOM结构映射成一个JSON数据结构，在有数据更改的时候更新真实的DOM，不需修改的时候不更新真实的DOM。
+        
+      // 1.在React中，数据props流向是单向的——从父节点传递到子节点，他们只需从父节点获取props渲染即可。如果顶层组件的某个prop改变了，React会递归地向下遍历整棵组建树，重新渲染所有使用这个属性的组件。 
+      // 2.React组件内部还具有自己的状态state，这些状态只能在组件内修改。
+      // 3.React组件本身很简单，你可以把他们看成是一个函数，他接受props和state作为参数，返回一个虚拟的DOM表现。
     </script>
   </body>
 </html>
