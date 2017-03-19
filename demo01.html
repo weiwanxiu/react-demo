@@ -10,10 +10,47 @@
   <body>
     <div id="example"></div>
     <script type="text/babel">
-      ReactDOM.render(
-        <h1>Hello, world!</h1>,
-        document.getElementById('example')
-      );
+      // ReactDOM.render(
+      //   <h1>Hello, world!</h1>,
+      //   document.getElementById('example')
+      // );
+
+
+      var List = React.createClass({
+          //1.创建阶段:1.设置默认的props值;  2.组件内部是不允许修改自己的props属性的;  3.发生在创建组件类的时候,即调用React.createClass。
+          getDefaultProps:function() {
+              console.log("getDefaultProps");
+              return {city:"guangzhou-default",name:"wwx-default"};
+          },
+
+          //2.实例化阶段:1.设置默认的props值;  2.每次实例创建时该方法都会被且尽被被调用一次;
+          getInitialState:function() {
+              console.log("getInitialState");
+              return {age:22};
+          },
+
+          //render之前调用，业务逻辑都应该放在这里，如对state的操作等;  首次渲染之前被调用,render方法调用前可以修改组件state的最后一次机会
+          componentWillMount:function() {
+              console.log("componentWillMount");
+          },
+
+          //渲染并返回一个虚拟DOM;  (1）只能通过this.props和this.state访问数据；（2）可以返回null、false或者任何React组件；（3）只能出现一个顶级组件；（4）必需纯净，意味着不能改变组件的状态或者修改DOM的输出。
+          render:function() {
+              console.log("render");
+              return (
+                  <div> hello <br/><strong> {"name:"+this.props.name}<br/>{"age:"+this.state.age}<br/>{"city:"+this.props.city} </strong></div>
+                  );
+          },
+
+          //render方法成功调用并且真实的DOM已经被渲染之后;  在该函数内部可以通过this.getDOMNode()来获取当前组件的节点
+          componentDidMount:function() {
+              console.log("componentDidMount");
+          },
+      });
+// state：是组建的属性，主要用来存储组件自身需要的数据。它是可以改变的，它的每次改变都会引起组件的更新，这也是ReactJS中的关键点之一。每次数据的更新都是通过修改state属性的值，然后ReactJS内部会监听state属性的变化，一旦发生变化，就会主动出发组件的render方法来更新DOM结构。
+// 虚拟DOM：它是ReactJS中提出的一个概念，是将真实的DOM结构映射成一个JSON数据结构，在有数据更改的时候更新真实的DOM，不需修改的时候不更新真实的DOM。
+
+      ReactDOM.render(<List name="wwx" >children</List>, document.body);
     </script>
   </body>
 </html>
