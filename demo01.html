@@ -20,13 +20,14 @@
           //1.创建阶段:1.设置默认的props值;  2.组件内部是不允许修改自己的props属性的;  3.发生在创建组件类的时候,即调用React.createClass。
           getDefaultProps:function() {
               console.log("getDefaultProps");
-              return {city:"guangzhou-default",name:"wwx-default"};
+              return {city:"guangzhou-default",name:"wwx-default"};//反模式：把计算后的值赋给state:在getInitialState中使用props的值
           },
 
           //2.实例化阶段:1.设置默认的props值;  2.每次实例创建时该方法都会被且尽被被调用一次;
           getInitialState:function() {
               console.log("getInitialState");
-              return {age:22};
+              // console.log("my name is "+this.props.name)
+              return {age:22,message:"my name is "+this.props.name};
           },
 
           //render之前调用，业务逻辑都应该放在这里，如对state的操作等;  首次渲染之前被调用,render方法调用前可以修改组件state的最后一次机会
@@ -38,14 +39,60 @@
           render:function() {
               console.log("render");
               return (
-                  <div> hello <br/><strong> {"name:"+this.props.name}<br/>{"age:"+this.state.age}<br/>{"city:"+this.props.city} </strong></div>
-                  );
+                  <div> hello <br/>
+                    <strong> 
+                      {"name:"+this.props.name}<br/>
+                      {"age:"+this.state.age}<br/>
+                      {"message:"+this.state.message}<br/>
+                      {"city:"+this.props.city} 
+                    </strong>
+                    <hr/>
+                    <button onClick={this.handleClick}></button>
+                  </div> 
+                );
           },
 
           //render方法成功调用并且真实的DOM已经被渲染之后;  在该函数内部可以通过this.getDOMNode()来获取当前组件的节点
           componentDidMount:function() {
               console.log("componentDidMount");
           },
+
+          //3.更新阶段
+          //在任意时刻，组件的props都可以通过父辈组件来更改
+          componentWillReceiveProps:function() {
+              console.log("componentWillReceiveProps");
+          },
+
+          //是否需要更新
+          shouldComponentUpdate:function() {
+              console.log("shouldComponentUpdate");
+              return true;
+          },
+
+          //将要更新
+          //该方法用来拦截新的props和state，然后开发者可以根据自己设定逻辑，做出要不要更新render的决定，让它更快。
+          componentWillUpdate:function() {
+              console.log("componentWillUpdate");
+          },
+
+          //更新完毕
+          //更新已经渲染好的DOM。
+          componentDidUpdate:function() {
+              console.log("componentDidUpdate");
+          },
+
+          //4.销毁阶段
+          componentWillUnmount:function() {
+              console.log("componentWillUnmount");
+          },
+
+          // 处理点击事件
+          handleClick:function() {
+            this.setState({age:this.state.age+2});
+            this.state.age="12343454"
+
+            // this.setProps({name:"wwx-new"})
+          }
       });
 // state：是组建的属性，主要用来存储组件自身需要的数据。它是可以改变的，它的每次改变都会引起组件的更新，这也是ReactJS中的关键点之一。每次数据的更新都是通过修改state属性的值，然后ReactJS内部会监听state属性的变化，一旦发生变化，就会主动出发组件的render方法来更新DOM结构。
 // 虚拟DOM：它是ReactJS中提出的一个概念，是将真实的DOM结构映射成一个JSON数据结构，在有数据更改的时候更新真实的DOM，不需修改的时候不更新真实的DOM。
