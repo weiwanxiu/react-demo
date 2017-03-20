@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            react
+        </title>
+        <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+        <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+        <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+        <style type="text/css">
+            .aa {
+                color: #39b2e6;
+                font-size: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="example"></div>
+        <script type="text/babel">
+                    var Aa=React.createClass({
+                        getInitialState:function(){
+                        return {id:2112311111111111111111212}
+                        },
+                        render:function(){
+                            return(
+                            <div onClick={this.handleClick}  >{/*事件*/}
+                                <span>aaaaa</span>
+                                <hr/>
+                                <Bb ref="Bb" name={[121212]}></Bb>{/*refs*/}
+                                <hr/>
+                                <Input ></Input>
+                                <hr/>
+        
+                                {this.props.children}{/*children*/}
+                                <hr/>
+                                {this.state.id}{/*state*/}
+                                <hr/>
+                                <div style={{opacity: 0.5}}>style</div>{/*style*/}
+                                <hr/>
+                                <div className="aa">className</div>{/*className*/}
+                            </div>)
+                        },
+                        handleClick:function(event){
+                            console.log(this.refs)
+                            console.log(event)
+                        }
+                    })
+        
+        
+                    var Bb=React.createClass({
+                        propTypes:{
+                        name:React.PropTypes.string.isRequired
+                        },
+                        render:function(){
+                            return(<div>bbbbb{this.props.name}
+                            <span>aaaaa</span><span>aaaaa</span><span>aaaaa</span><span>aaaaa</span><span>aaaaa</span>
+                            </div>)
+                        }
+                    })
+        
+                    var Input = React.createClass({
+                      getInitialState: function() {
+                        return {value: 'Hello!'};
+                      },
+                      handleChange: function(event) {
+                        this.setState({value: event.target.value});
+                      },
+                      render: function () {
+                        var value = this.state.value;
+                        return (
+                          <div>
+                            <input type="text" value={value} onChange={this.handleChange} />
+                            <p>{value}</p>
+                          </div>
+                        );
+                      }
+                    });
+        
+                    var Hello = React.createClass({
+                      getInitialState: function () {
+                        return {
+                          opacity: 1.0
+                        };
+                      },
+        
+                      componentDidMount: function () {
+                        this.timer = setInterval(function () {
+                          var opacity = this.state.opacity;
+                          opacity -= .05;
+                          if (opacity < 0.1) {
+                            opacity = 1.0;
+                          }
+                          this.setState({
+                            opacity: opacity
+                          });
+                        }.bind(this), 100);
+                      },
+        
+                      render: function () {
+                        return (
+                          <div style={{opacity: this.state.opacity}}>
+                            Hello {this.props.name}
+                          </div>
+                        );
+                      }
+                    });
+                    ReactDOM.render(<Aa ><Hello></Hello></Aa>,document.getElementById("example"))
+                
+                </script>
+    </body>
+</html>
